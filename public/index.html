@@ -1,20 +1,23 @@
 <!DOCTYPE html>                            <!-- HTML5文書であることを宣言 -->
 <html lang="ja">                           <!-- 言語を日本語に設定 -->
 
-<head>                                     <!-- ブラウザに見えない設定情報エリア -->    
+<head>                                     <!-- ブラウザに見えない設定情報エリア -->
   <meta charset="UTF-8">                   <!-- 文字化け防止（UTF-8を使用） -->
   <title>Task App</title>                  <!-- ブラウザタブに表示されるタイトル -->
   <link rel="stylesheet" href="style.css"> <!-- 外部CSSファイル（style.css）を読み込む -->
 </head> 
 
 <body>                                     <!-- 画面に表示される部分の開始 -->
+  <div class="container">.                 <!-- アプリ全体のコンテナ（中央配置やスタイル用の枠） -->
+    <h1>Task App</h1>                      <!-- アプリのタイトル -->
+    <div class="form-area">                <!-- 入力エリア -->
+      <input type="text" id="taskInput" placeholder="タスクを入力"> <!-- 入力欄 -->
+      <button onclick="addTask()">追加</button>                    <!-- 追加ボタン -->
+    </div>
 
-  <h1>タスク管理</h1>                        <!-- アプリの見出し -->
-  <input type="text" id="taskInput">       <!-- タスク入力用のテキストボックス -->
-  <button onclick="addTask()">追加</button> <!-- クリックでaddTask関数を実行 -->
   <ul id="taskList"></ul>                  <!-- 追加されたタスクを表示するリスト -->
-
   <script src="app.js"></script>           <!-- JavaScriptファイルを読み込む -->
-
+    
+  </div>
 </body>
 </html>

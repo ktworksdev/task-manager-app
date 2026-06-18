@@ -3,7 +3,17 @@ body {
   font-family: Arial, sans-serif; /* フォント統一 */
   max-width: 600px;               /* 最大幅 */
   margin: 40px auto;              /* 上下、中央寄 */
-  padding: 20px;                  /* 内側余白 */
+  background: #f5f5f5;          /* 背景色 */
+  padding: 16px;                  /* 内側余白 */
+}
+
+/* アプリ全体のコンテナ */
+.container {
+  max-width: 600px;   /* 最大幅 */
+  margin: 0 auto;     /* 中央寄せ */
+  background: #fff; /* 背景白 */
+  padding: 20px;      /* 内側余白 */
+  border-radius: 10px; /* 角丸 */
 }
 
 /* 見出しの中央揃え */
@@ -11,19 +21,35 @@ h1 {
   text-align: center; /* テキスト中央配置 */
 }
 
-/* テキスト入力欄のスタイル */
+/* 入力フォームエリア */
+.form-area {
+  display: flex;       /* 横並び */
+  gap: 8px;            /* 間隔 */
+  margin-bottom: 20px; /* 下側余白 */
+}
+
+/* タスク入力欄 */
 input {
-  padding: 8px;  /* 内側余白 */
-  width: 70%;    /* 親要素の70%幅 */
+    width: 70%;      /* 横幅調整 */  
+    padding: 10px;   /* 内側余白 */
+    font-size: 16px;
 }
 
-/* ボタンのスタイル */
+/* ボタンの共通スタイル */
 button {
-  padding: 8px 12px; /* 内側余白 */
-  cursor: pointer;   /* マウスを乗せたときに手の形にする */
+  padding: 10px 16px;    /* 内側余白 */
+  border: none;          /* 枠線を削除 */
+  background: #4caf50; /* ボタンの背景色（緑） */
+  color: white;        /* 文字色（白） */
+  cursor: pointer;       /* マウスを乗せたときに手の形にする */
+  border-radius: 4px;    /* 角丸 */
 }
 
-/* リスト項目の間隔 */
+/* リスト */
 li {
-  margin: 10px; /* 外側余白 */
-  }
+  background: #fafafa; /* 背景色 */
+  margin-bottom: 10px;   /* 上下余白 */
+  padding: 12px;         /* 内側余白 */
+  border-radius: 4px;    /* 角丸 */
+  list-style: none;      /* 黒い点（・）を消す */
+}
