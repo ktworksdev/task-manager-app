@@ -39,17 +39,33 @@ input {
 button {
   padding: 10px 16px;    /* 内側余白 */
   border: none;          /* 枠線を削除 */
-  background: #4caf50; /* ボタンの背景色（緑） */
-  color: white;        /* 文字色（白） */
+  background: #4caf50; /* 背景 */
+  color: white;        /* 文字色 */
   cursor: pointer;       /* マウスを乗せたときに手の形にする */
   border-radius: 4px;    /* 角丸 */
 }
 
-/* リスト */
-li {
-  background: #fafafa; /* 背景色 */
-  margin-bottom: 10px;   /* 上下余白 */
-  padding: 12px;         /* 内側余白 */
-  border-radius: 4px;    /* 角丸 */
-  list-style: none;      /* 黒い点（・）を消す */
+/* タスク一覧 */
+.task-card {
+  background: #fff;             /* 背景 */
+  border-radius: 10px;            /* 角丸 */
+  padding: 12px 16px;             /* 余白 */
+  margin-bottom: 10px;            /* 間隔 */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* 立体感 */
+  display: flex;                  /* 横並び */
+  justify-content: space-between; /* 左右に要素を分散配置 */
+  align-items: center;            /* 縦方向の中央揃え */
+}
+
+/* タスク一覧タスク文字スタイル */
+.task-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* タスク一覧ボタン群レイアウト*/
+* ボタン群レイアウト*/
+.task-actions {
+  display: flex; /* 横並び */
+  gap: 8px;      /* 間隔 */
 }

@@ -16,21 +16,28 @@ async function loadTasks() {
   list.innerHTML = "";
 
   // 取得したタスクを表示
-  tasks.forEach((task) => {
-    // li作成
-    const li = document.createElement("li");
+  tasks.forEach(task => {
+    
+    // タスク表示用のカード要素を作成
+    const card = document.createElement("div");
+    card.className = "task-card";
 
-    // テキスト設定
-    const span = document.createElement("span");
-    span.textContent = task.title;
-    li.appendChild(span);
+    // タスクのタイトル要素を作成して内容を設定
+    const title = document.createElement("div");
+    title.className = "task-title";
+    title.textContent = task.title;
 
-    // 編集ボタン
+    // 編集・削除ボタン用のコンテナを作成
+    const actions = document.createElement("div");
+    actions.className = "task-actions";
+
+    // 編集ボタンを作成
     const editButton = document.createElement("button");
     editButton.textContent = "編集";
 
     // 編集処理
     editButton.addEventListener("click", async () => {
+
       // promptで新しいタスク名を入力してもらう
       const newTitle = prompt("新しいタスク名");
 
@@ -39,6 +46,7 @@ async function loadTasks() {
 
       // PUTリクエストをAPIに送信
       await fetch(`http://localhost:3000/tasks/${task.id}`, {
+
         // HTTPメソッドは PUT（更新）
         method: "PUT",
 
@@ -49,12 +57,11 @@ async function loadTasks() {
 
         // サーバーへ送る更新データ
         body: JSON.stringify({
-          // 新しいタイトル
           title: newTitle,
         }),
       });
 
-      // 更新後にタスク一覧を再取得して画面更新
+      // 更新後にタスク一覧を再取得して画面更新 
       loadTasks();
     });
 
@@ -64,6 +71,7 @@ async function loadTasks() {
 
     // 削除処理
     delBtn.onclick = async () => {
+
       await fetch(`${API_URL}/${task.id}`, {
         method: "DELETE",
       });
@@ -72,18 +80,21 @@ async function loadTasks() {
       loadTasks();
     };
 
-    // liに追加
-    li.appendChild(span);
-    li.appendChild(editButton);
-    li.appendChild(delBtn);
+    // タスクカードにタイトルと操作ボタンを追加し、一覧に表示 
+    actions.appendChild(editButton);
+    actions.appendChild(delBtn);
 
-    // ulに追加
-    list.appendChild(li);
+    card.appendChild(title);
+    card.appendChild(actions);
+
+    list.appendChild(card);
+
   });
 }
 
 // タスク追加
 async function addTask() {
+
   // input取得
   const input = document.getElementById("taskInput");
 
