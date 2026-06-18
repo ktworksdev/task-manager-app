@@ -1,0 +1,29 @@
+/* ページ全体のレイアウト */
+body {
+  font-family: Arial, sans-serif; /* フォント統一 */
+  max-width: 600px;               /* 最大幅 */
+  margin: 40px auto;              /* 上下、中央寄 */
+  padding: 20px;                  /* 内側余白 */
+}
+
+/* 見出しの中央揃え */
+h1 {
+  text-align: center; /* テキスト中央配置 */
+}
+
+/* テキスト入力欄のスタイル */
+input {
+  padding: 8px;  /* 内側余白 */
+  width: 70%;    /* 親要素の70%幅 */
+}
+
+/* ボタンのスタイル */
+button {
+  padding: 8px 12px; /* 内側余白 */
+  cursor: pointer;   /* マウスを乗せたときに手の形にする */
+}
+
+/* リスト項目の間隔 */
+li {
+  margin: 10px; /* 外側余白 */
+  }
