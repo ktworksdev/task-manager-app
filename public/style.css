@@ -1,18 +1,18 @@
 /* ページ全体のレイアウト */
 body {
   font-family: Arial, sans-serif; /* フォントを統一 */
-  max-width: 600px;               /* 最大幅 */
-  margin: 40px auto;              /* 上下40px、中央寄 */
-  background: #f5f5f5;            /* 背景色 */
-  padding: 16px;                  /* 内側余白 */
+  max-width: 600px; /* 最大幅 */
+  margin: 40px auto; /* 上下40px、中央寄 */
+  background: #f5f5f5; /* 背景色 */
+  padding: 16px; /* 内側余白 */
 }
 
 /* アプリ全体のコンテナ */
 .container {
-  max-width: 600px;   /* 最大幅 */
-  margin: 0 auto;     /* 中央寄せ */
+  max-width: 600px; /* 最大幅 */
+  margin: 0 auto; /* 中央寄せ */
   background: #fff; /* 背景白 */
-  padding: 20px;      /* 内側余白 */
+  padding: 20px; /* 内側余白 */
   border-radius: 10px; /* 角丸 */
 }
 
@@ -23,26 +23,26 @@ h1 {
 
 /* 入力フォームエリア */
 .form-area {
-  display: flex;       /* 横並び */
-  gap: 8px;            /* 間隔 */
+  display: flex; /* 横並び */
+  gap: 8px; /* 間隔 */
   margin-bottom: 20px; /* 下との間隔 */
 }
 
 /* タスク入力欄 */
 input {
-    width: 70%;      /* 横幅調整 */  
-    padding: 10px;   /* 内側余白 */
-    font-size: 16px; /* フォントサイズ */
+  width: 70%; /* 横幅調整 */
+  padding: 10px; /* 内側余白 */
+  font-size: 16px; /* フォントサイズ */
 }
 
 /* ボタンの共通スタイル */
 button {
-  padding: 10px 16px;  /* クリック領域を確保 */
-  border: none;        /* 枠線を削除 */
-  background: #4caf50;  /* ボタンの背景色（緑） */
-  color: white;         /* 文字色（白） */
-  cursor: pointer;      /* マウスを乗せたときに手の形にする */
-  border-radius: 4px;   /* 角丸 */
+  padding: 10px 16px; /* クリック領域を確保 */
+  border: none; /* 枠線を削除 */
+  background: #4caf50; /* ボタンの背景色（緑） */
+  color: white; /* 文字色（白） */
+  cursor: pointer; /* マウスを乗せたときに手の形にする */
+  border-radius: 4px; /* 角丸 */
 }
 
 /* タスク一覧 */
@@ -51,7 +51,7 @@ button {
   border-radius: 10px;
   padding: 12px 16px;
   margin-bottom: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 
   display: flex;
   justify-content: space-between;
@@ -66,7 +66,7 @@ button {
 
 /* 状態表示 */
 .hidden {
-  display: none;/* 要素を完全に非表示にする */
+  display: none; /* 要素を完全に非表示にする */
 }
 
 /* ローディング表示 */
@@ -93,7 +93,7 @@ button {
 #errorMessage {
   color: red;
   margin-top: 10px;
-  font-size: 14px; 
+  font-size: 14px;
 }
 
 /* タスク一覧状態表示完了済みタスク */

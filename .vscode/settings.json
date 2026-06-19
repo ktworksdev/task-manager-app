@@ -1,0 +1,9 @@
+{
+  // 保存時にESLintで自動修正を実行する
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+
+  // ファイル保存時にコードを自動整形する
+  "editor.formatOnSave": true
+}
