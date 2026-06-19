@@ -1,111 +1,160 @@
 // サーバーAPIのURL
-const API_URL = "http://localhost:3000/tasks";
+const API_URL = "http://localhost:3000/tasks"
+    
+// UI要素取得
+const loading = document.getElementById("loading");
+const errorBox = document.getElementById("error");
+
+// ローディング表示
+function showLoading() {
+  loading.classList.remove("hidden");
+}
+
+// ローディング表示/非表示
+function hideLoading() {
+  loading.classList.add("hidden");
+}
+
+// エラー表示
+function showError(message) {
+  errorBox.textContent = message;
+  errorBox.classList.remove("hidden");
+}
+
+// エラー非表示
+function clearError() {
+  errorBox.textContent = "";
+  errorBox.classList.add("hidden");
+}
 
 // タスク一覧取得
 async function loadTasks() {
-  // APIから取得
-  const res = await fetch(API_URL);
 
-  // JSON化
+  clearError();  // 取得開始時に前回のエラー表示をリセットする
+  showLoading(); // 通信完了までローディングを表示
+
+  try {
+  // APIへリクエストを送信してタスク一覧を取得
+  const res = await fetch("http://localhost:3000/tasks");
+
+  // HTTPステータスが 200番台以外ならエラーとして扱う
+  if (!res.ok) {
+    throw new Error("サーバーエラーが発生しました");
+  }
+
+  // レスポンス(JSON)をJavaScriptオブジェクトへ変換
   const tasks = await res.json();
 
-  // ul要素取得
-  const list = document.getElementById("taskList");
+  // 取得したタスク一覧を画面に表示
+  renderTasks(tasks);
 
-  // 一旦空にする
-  list.innerHTML = "";
+ } catch (err) {
+  // 通信失敗やサーバーエラー時にエラーメッセージを表示
+  showError(err.message || "通信に失敗しました");
 
-  // 取得したタスクを表示
+ } finally {
+  // 成功・失敗に関係なくローディング表示を終了
+  hideLoading();
+ }
+}
+
+// タスク一覧描画
+function renderTasks(tasks) {
+
+  const list = document.getElementById("taskList")
+  list.innerHTML = ""
+
+  if (!tasks || tasks.length === 0) {
+    list.innerHTML = "<li>タスクがありません</li>"
+    return
+  }
+
   tasks.forEach(task => {
-    
-    // タスク表示用のカード要素を作成
-    const card = document.createElement("div");
-    card.className = "task-card";
 
-    // タスクのタイトル要素を作成して内容を設定
-    const title = document.createElement("div");
-    title.className = "task-title";
-    title.textContent = task.title;
+    // タスクを表示するカード(div)を作成
+    // task-card クラスを設定してスタイルを適用
+    const card = document.createElement("div")
+    card.className = "task-card"
 
-    // ------------------------------------------------- Modified Day33
-    // 完了状態に応じてクラスと表示テキストを切り替え // 追加
-    const statusClass = task.completed ? "completed" : "pending";
-    const statusText = task.completed ? "完了" : "未完了";
+    // テキスト設定
+    const title = document.createElement("div")
+    title.className = "task-title"
+    title.textContent = task.title
 
-    // ステータス表示用要素を作成 // 追加
+    // 完了状態に応じてクラスと表示テキストを切り替え
+    const statusClass = task.completed ? "completed" : "pending"
+    const statusText = task.completed ? "完了" : "未完了"
+
+    // ステータス設定
     const status = document.createElement("div");
+    status.className = statusClass
+    status.textContent = statusText
 
-    // クラスとテキストを設定 // 追加
-    status.className = statusClass;
-    status.textContent = statusText;
-    // ------------------------------------------------- End Modified Day33
+    // ボタン設定
+    const actions = document.createElement("div")
+    actions.className = "task-actions"
 
-    // 編集・削除ボタン用のコンテナを作成
-    const actions = document.createElement("div");
-    actions.className = "task-actions";
+    // 編集ボタン
+    const editButton = document.createElement("button")
+    editButton.textContent = "編集"
 
-    // 編集ボタンを作成
-    const editButton = document.createElement("button");
-    editButton.textContent = "編集";
+    editButton.onclick = async () => {
 
-    // 編集処理
-    editButton.addEventListener("click", async () => {
-
-      // promptで新しいタスク名を入力してもらう
-      const newTitle = prompt("新しいタスク名");
+       // promptで新しいタスク名を入力
+      const newTitle = prompt("新しいタスク名")
 
       // キャンセル or 空文字なら処理終了
-      if (!newTitle) return;
+      if (!newTitle) return
 
       // PUTリクエストをAPIに送信
+      // task.id のタスクを更新する
       await fetch(`http://localhost:3000/tasks/${task.id}`, {
-
+        
         // HTTPメソッドは PUT（更新）
         method: "PUT",
 
         // JSONデータを送ることを指定
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-
+            
         // サーバーへ送る更新データ
         body: JSON.stringify({
+          // 新しいタイトル
           title: newTitle,
-        }),
-      });
+          completed: task.completed
+        })
+      })
 
-      // 更新後にタスク一覧を再取得して画面更新 
-      loadTasks();
-    });
+      // 再読み込み
+      loadTasks()
+    }
 
     // 削除ボタン
-    const delBtn = document.createElement("button");
-    delBtn.textContent = "削除";
+    const delBtn = document.createElement("button")
+    delBtn.textContent = "削除"
 
     // 削除処理
     delBtn.onclick = async () => {
 
-      await fetch(`${API_URL}/${task.id}`, {
-        method: "DELETE",
-      });
+      await fetch(`http://localhost:3000/tasks/${task.id}`, {
+        method: "DELETE"
+      })
 
       // 再読み込み
-      loadTasks();
-    };
+      loadTasks()
+    }
 
-    // タスクカードにタイトルと操作ボタンを追加し、一覧に表示 
-    actions.appendChild(editButton);
-    actions.appendChild(delBtn);
+    // タイトルと操作ボタンをカードに追加してリストへ表示
+    actions.appendChild(editButton)
+    actions.appendChild(delBtn)
 
-    card.appendChild(title);
-    // ------------------------------------------------- Modified Day33
-    card.appendChild(status); // 追加
-    // ------------------------------------------------- End Modified Day33 
-    card.appendChild(actions);
+    card.appendChild(title)
+    card.appendChild(status)
+    card.appendChild(actions)
 
-    list.appendChild(card);
-
-  });
+    list.appendChild(card)
+  })
 }
 
 // タスク追加
