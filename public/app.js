@@ -163,28 +163,53 @@ async function addTask() {
   // input取得
   const input = document.getElementById("taskInput");
 
-  // 入力値取得
-  const title = input.value;
+  const error = document.getElementById('errorMessage');
 
-  // 空なら終了
-  if (!title) return;
+  // 入力値取得
+  const title = input.value.trim();
+
+  // エラーメッセージ初期化
+  error.textContent = '';
+
+  // 空文字チェック
+    if (title === '') {
+    error.textContent = 'タスク名を入力してください';
+    return;
+  }
+
+  // 文字数制限
+  if (title.length > 30) {
+    error.textContent = '30文字以内で入力してください';
+    return;
+  }
 
   // APIへPOST
-  await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      title,
-    }),
-  });
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title
+      })
+    });
 
-  // 入力欄クリア
-  input.value = "";
+    const data = await response.json();
 
-  // 再取得
-  loadTasks();
+    // サーバーエラー表示
+    if (!response.ok) {
+      error.textContent = data.error;
+      return;
+    }
+
+    input.value = '';
+
+    loadTasks();
+
+  } catch (err) {
+    error.textContent = '通信エラーが発生しました';
+  }
 }
 
 // 初回読み込み

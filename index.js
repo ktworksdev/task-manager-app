@@ -44,27 +44,39 @@ app.post("/tasks", (req, res) => {
   // リクエストボディからtitleを取得
   const { title } = req.body;
 
-  // titleが空の場合はエラー
-  if (!title) {
-    return res.status(400).json({ error: "title required" });
+  // 空文字チェック
+  if (!title || title.trim() === '') {
+    return res.status(400).json({
+      error: 'タスク名を入力してください'
+    });
   }
 
-  // INSERT SQL（?はプレースホルダー）
-  const sql = "INSERT INTO tasks (title) VALUES (?)";
+  // 文字数制限
+  if (title.length > 30) {
+    return res.status(400).json({
+      error: '30文字以内で入力してください'
+    });
+  }
 
   // データベースに挿入
-  db.run(sql, [title], function (err) {
+  db.run(
+    'INSERT INTO tasks (title) VALUES (?)',
+     [title],
+     function (err) {
+
     // エラー処理
     if (err) {
-      return res.status(500).json({ error: err.message });
+      return res.status(500).json({
+        error: err.message
+      })
     }
 
     // 成功レスポンス（追加されたIDを返す）
     res.json({
       id: this.lastID,
-      title: title,
-    });
-  });
+      title: title
+    })
+  })
 });
 
 // ------------------------------

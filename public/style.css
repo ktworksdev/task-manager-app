@@ -89,6 +89,13 @@ button {
   font-size: 14px;
 }
 
+/* エラーメッセージのスタイル */
+#errorMessage {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px; 
+}
+
 /* タスク一覧状態表示完了済みタスク */
 .completed {
   color: green;
