@@ -1,19 +1,19 @@
 /* ページ全体のレイアウト */
 body {
   font-family: Arial, sans-serif; /* フォントを統一 */
-  max-width: 600px; /* 最大幅 */
-  margin: 40px auto; /* 上下40px、中央寄 */
-  background: #f5f5f5; /* 背景色 */
-  padding: 16px; /* 内側余白 */
+  max-width: 600px;
+  margin: 40px auto;
+  background: #f5f5f5;
+  padding: 16px;
 }
 
 /* アプリ全体のコンテナ */
 .container {
-  max-width: 600px; /* 最大幅 */
-  margin: 0 auto; /* 中央寄せ */
-  background: #fff; /* 背景白 */
-  padding: 20px; /* 内側余白 */
-  border-radius: 10px; /* 角丸 */
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 /* 見出しの中央揃え */
@@ -23,26 +23,31 @@ h1 {
 
 /* 入力フォームエリア */
 .form-area {
-  display: flex; /* 横並び */
-  gap: 8px; /* 間隔 */
-  margin-bottom: 20px; /* 下との間隔 */
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 /* タスク入力欄 */
 input {
-  width: 70%; /* 横幅調整 */
-  padding: 10px; /* 内側余白 */
-  font-size: 16px; /* フォントサイズ */
+  width: 70%;
+  padding: 10px;
+  font-size: 16px;
 }
 
 /* ボタンの共通スタイル */
 button {
-  padding: 10px 16px; /* クリック領域を確保 */
-  border: none; /* 枠線を削除 */
-  background: #4caf50; /* ボタンの背景色（緑） */
-  color: white; /* 文字色（白） */
+  padding: 10px 16px;
+  border: none;
+  background: #4caf50;
+  color: white;
   cursor: pointer; /* マウスを乗せたときに手の形にする */
-  border-radius: 4px; /* 角丸 */
+  border-radius: 4px;
+}
+
+/* ホバー効果 */
+button:hover {
+  opacity: 0.8;
 }
 
 /* タスク一覧 */
@@ -50,9 +55,9 @@ button {
   background: #fff;
   border-radius: 10px;
   padding: 12px 16px;
+  padding: 12px 20px;
   margin-bottom: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -62,6 +67,7 @@ button {
 .task-title {
   font-size: 16px;
   font-weight: bold;
+  overflow-wrap: break-word;; /* 改行対策 */
 }
 
 /* 状態表示 */
@@ -112,4 +118,23 @@ button {
 .task-actions {
   display: flex;
   gap: 8px;
+}
+
+/* タブレット・スマホ対応　 */
+@media (max-width: 768px) {
+
+  /* 入力フォーム */
+  .form-area {
+    flex-direction: column;
+  }
+
+  /* 入力欄 */
+  input {
+    width: 100%;
+  }
+
+  /* ボタン */
+  button {
+    width: 100%;
+  }
 }

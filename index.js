@@ -119,6 +119,20 @@ app.put("/tasks/:id", (req, res) => {
   // リクエストボディからtitleとcompletedを取得
   const { title, completed = 0 } = req.body;
 
+  // 空文字チェック
+  if (!title || title.trim() === '') {
+    return res.status(400).json({
+      error: 'タスク名を入力してください'
+    });
+  }
+
+  // 文字数制限
+  if (title.length > 30) {
+    return res.status(400).json({
+      error: '30文字以内で入力してください'
+    });
+  }
+  
   // 更新SQL
   const sql = `
     UPDATE tasks

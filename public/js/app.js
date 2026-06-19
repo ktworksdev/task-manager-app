@@ -15,6 +15,7 @@ import {
 
 // タスク一覧取得
 async function loadTasks() {
+
   clearError(); // 取得開始時に前回のエラー表示をリセットする
   showLoading(); // 通信完了までローディングを表示
 
@@ -36,8 +37,18 @@ async function handleEdit(task) {
   // promptで新しいタスク名を入力 
   const newTitle = prompt("新しいタスク名", task.title);
 
-  // キャンセル or 空文字なら処理終了
-  if (!newTitle) return;
+  // 空文字チェック
+  // キャンセル（null）または空入力（空白のみ含む）なら処理終了
+  if (!newTitle || newTitle.trim() ==="") {
+    showError("タスクを入力してください");
+    return;
+  }
+
+   // 文字数制限
+  if (newTitle.length > 30) {
+    alert("30文字以内で入力してください");
+    return;
+  }
 
   // 更新処理
   await updateTask(task.id, newTitle, task.completed);
@@ -91,7 +102,18 @@ async function addTask() {
 
 // イベント登録
 // 追加ボタン
-document.getElementById("addBtn").addEventListener("click", addTask);
+document
+.getElementById("addBtn")
+.addEventListener("click", addTask);
+
+// 追加ボタンEnterキー対応
+document
+.getElementById("taskInput")
+.addEventListener("keydown",(e) => {  
+    if (e.key === "Enter") {
+        addTask();
+      }
+    });
 
 // 初回読み込み
 loadTasks();
