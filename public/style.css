@@ -11,7 +11,7 @@ body {
 .container {
   max-width: 600px;   /* 最大幅 */
   margin: 0 auto;     /* 中央寄せ */
-  background: #fff; /* 背景白 */
+  background: #fff; /* 背景色 */
   padding: 20px;      /* 内側余白 */
   border-radius: 10px; /* 角丸 */
 }
@@ -39,7 +39,7 @@ input {
 button {
   padding: 10px 16px;    /* 内側余白 */
   border: none;          /* 枠線を削除 */
-  background: #4caf50; /* 背景 */
+  background: #4caf50; /* 背景色 */
   color: white;        /* 文字色 */
   cursor: pointer;       /* マウスを乗せたときに手の形にする */
   border-radius: 4px;    /* 角丸 */
@@ -62,6 +62,20 @@ button {
   font-size: 16px;
   font-weight: bold;
 }
+
+/* ------------------------------------------------- Modified Day33 */
+/* タスク一覧状態表示完了済みタスク */ /* 追加 */
+.completed {
+  color: green;
+  font-weight: bold;
+}
+
+/* タスク一覧状態表示未完了タスク */ /* 追加 */
+.pending {
+  color: red;
+  font-weight: bold;
+}
+/* ------------------------------------------------- End Modified Day33 */
 
 /* タスク一覧ボタン群レイアウト*/
 * ボタン群レイアウト*/

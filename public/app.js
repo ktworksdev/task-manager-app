@@ -27,6 +27,19 @@ async function loadTasks() {
     title.className = "task-title";
     title.textContent = task.title;
 
+    // ------------------------------------------------- Modified Day33
+    // 完了状態に応じてクラスと表示テキストを切り替え // 追加
+    const statusClass = task.completed ? "completed" : "pending";
+    const statusText = task.completed ? "完了" : "未完了";
+
+    // ステータス表示用要素を作成 // 追加
+    const status = document.createElement("div");
+
+    // クラスとテキストを設定 // 追加
+    status.className = statusClass;
+    status.textContent = statusText;
+    // ------------------------------------------------- End Modified Day33
+
     // 編集・削除ボタン用のコンテナを作成
     const actions = document.createElement("div");
     actions.className = "task-actions";
@@ -85,6 +98,9 @@ async function loadTasks() {
     actions.appendChild(delBtn);
 
     card.appendChild(title);
+    // ------------------------------------------------- Modified Day33
+    card.appendChild(status); // 追加
+    // ------------------------------------------------- End Modified Day33 
     card.appendChild(actions);
 
     list.appendChild(card);
