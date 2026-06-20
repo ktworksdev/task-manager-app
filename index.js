@@ -7,6 +7,9 @@ const cors = require("cors");
 // 自作のDBモジュール（SQLite接続済み）を読み込む
 const db = require("./db");
 
+// authルート（認証関連の処理）を読み込む
+const authRoutes = require("./routes/auth");
+
 // Expressアプリ本体を作成
 const app = express();
 
@@ -19,6 +22,9 @@ app.use(cors());
 // JSON形式のリクエストボディを自動で解析する
 // これにより req.body でJSONデータが使える
 app.use(express.json());
+
+// /auth に来たリクエストを authRoutes に渡す
+app.use("/auth", authRoutes);
 
 // ------------------------------
 // GET /tasks（タスク一覧取得）
