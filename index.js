@@ -24,7 +24,7 @@ app.use(cors());
 app.use(express.json());
 
 // /auth に来たリクエストを authRoutes に渡す
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 // ------------------------------
 // GET /tasks（タスク一覧取得）
