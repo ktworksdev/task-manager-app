@@ -16,12 +16,22 @@ const db = new sqlite3.Database("./tasks.db", (err) => {
 
 // SQLを順番に安全に実行するためのブロック
 db.serialize(() => {
-  // tasksテーブルを作成するSQL（存在しない場合のみ作成）
+  // tasksテーブル作成（存在しない場合のみ作成）
   db.run(`
     CREATE TABLE IF NOT EXISTS tasks (
       id INTEGER PRIMARY KEY AUTOINCREMENT, -- 自動で増えるID
       title TEXT NOT NULL,                  -- タスクの内容（必須）
       completed INTEGER DEFAULT 0           -- 完了状態（0=未完了 / 1=完了）
+    )
+  `);
+
+  // usersテーブル作成（認証用ユーザー情報）
+  db.run(`
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, -- 自動で増えるID
+      email TEXT UNIQUE NOT NULL,           -- ログイン用メールアドレス（重複不可）
+      password TEXT NOT NULL,               -- ハッシュ化されたパスワード
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP -- 作成日時（自動付与）
     )
   `);
 });
