@@ -10,6 +10,11 @@ const db = require("./db");
 // authルート（認証関連の処理）を読み込む
 const authRoutes = require("./routes/auth");
 
+// JWT（JSON Web Token）を扱うためのライブラリを読み込む（トークン認証用）
+const jwt = require("jsonwebtoken");
+
+const SECRET_KEY = "your_secret_key"; // 本番は.envに移す
+
 // Expressアプリ本体を作成
 const app = express();
 
@@ -25,6 +30,33 @@ app.use(express.json());
 
 // /auth に来たリクエストを authRoutes に渡す
 app.use("/api/auth", authRoutes);
+
+// JWT認証ミドルウェア
+// （後で task-manager-app/middleware/middleware/auth.js に分離予定）
+function authMiddleware(req, res, next) {
+  // リクエストヘッダーからAuthorization（Bearerトークン）を取得する
+  const authHeader = req.headers.authorization;
+
+  // トークンがない場合は認証エラー
+  if (!authHeader) {
+    return res.status(401).json({ message: "トークンなし" });
+  }
+
+  // JWTトークン部分を取得
+  const token = authHeader.split(" ")[1];
+
+  try {
+    // JWTを検証してユーザー情報を取得する
+    const decoded = jwt.verify(token, SECRET_KEY);
+
+    // ユーザー情報をリクエストに追加
+    req.user = decoded;
+    next();
+  } catch (err) {
+    // トークンが不正または期限切れ
+    return res.status(401).json({ message: "トークン無効" });
+  }
+}
 
 // ------------------------------
 // GET /tasks（タスク一覧取得）
@@ -126,19 +158,19 @@ app.put("/tasks/:id", (req, res) => {
   const { title, completed = 0 } = req.body;
 
   // 空文字チェック
-  if (!title || title.trim() === '') {
+  if (!title || title.trim() === "") {
     return res.status(400).json({
-      error: 'タスク名を入力してください'
+      error: "タスク名を入力してください",
     });
   }
 
   // 文字数制限
   if (title.length > 30) {
     return res.status(400).json({
-      error: '30文字以内で入力してください'
+      error: "30文字以内で入力してください",
     });
   }
-  
+
   // 更新SQL
   const sql = `
     UPDATE tasks
@@ -157,6 +189,24 @@ app.put("/tasks/:id", (req, res) => {
     res.json({
       message: "更新完了",
       changes: this.changes,
+    });
+  });
+});
+
+// JWT認証を適用したタスク取得API（後で routes/tasks.js に分離予定）
+app.get("/tasks-secure", authMiddleware, (req, res) => {
+  // DBから全タスクを取得
+  db.all("SELECT * FROM tasks", [], (err, rows) => {
+    // SQLエラー時は500返す
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    // 成功レスポンス
+    res.json({
+      message: "取得成功",
+      user: req.user, // 認証済みユーザー情報
+      data: rows,     // タスク一覧
     });
   });
 });

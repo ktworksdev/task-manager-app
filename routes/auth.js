@@ -3,6 +3,10 @@ const router = express.Router();
 const db = require("../db");
 const bcrypt = require("bcrypt");
 
+const jwt = require("jsonwebtoken");
+
+const SECRET_KEY = "your_secret_key"; // 本番環境では.env管理
+
 // 新規ユーザー登録API
 router.post("/register", (req, res) => {
   const { email, password } = req.body;
@@ -16,7 +20,7 @@ router.post("/register", (req, res) => {
 
   // 既存ユーザー確認
   const checkSql = "SELECT * FROM users WHERE email = ?";
-  
+
   db.get(checkSql, [email], (err, user) => {
     if (err) {
       return res.status(500).json({
@@ -109,13 +113,19 @@ router.post("/login", (req, res) => {
         });
       }
 
-      // ログイン成功
-      return res.status(200).json({
-        message: "ログイン成功",
-        user: {
-          id: user.id,
+      // JWTトークン発行（ログイン成功時）
+      const token = jwt.sign(
+        {
+          userId: user.id,
           email: user.email,
         },
+        SECRET_KEY,
+        { expiresIn: "1d" }
+      );
+
+      return res.status(200).json({
+        message: "ログイン成功",
+        token: token,
       });
     });
   });
