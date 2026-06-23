@@ -7,7 +7,7 @@ const SECRET_KEY = "your_secret_key";
 
 // 認証付きタスク取得API（ユーザーごとに分離）
 router.get("/", authMiddleware, (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user.userId;
 
   db.all(
     "SELECT * FROM tasks WHERE user_id = ?",
@@ -31,7 +31,7 @@ router.get("/", authMiddleware, (req, res) => {
 // 認証付きタスク作成API（user_idを必ず付与）
 router.post("/", authMiddleware, (req, res) => {
   const { title } = req.body;
-  const userId = req.user.id;
+  const userId = req.user.userId;
 
   if (!title || title.trim() === "") {
     return res.status(400).json({
