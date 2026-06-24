@@ -1,22 +1,12 @@
 const express = require("express");
 const router = express.Router();
-// ------------------------------------------------- Modified Day45
-//const db = require("../db");
-//const bcrypt = require("bcrypt");
-
-//const jwt = require("jsonwebtoken");
-
-//const SECRET_KEY = "your_secret_key"; // 本番環境では.env管理
-// ------------------------------------------------- End Modified Day45
+const db = require("../db");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const SECRET_KEY = "your_secret_key"; // 本番環境では.env管理
 
 // 新規ユーザー登録API
 router.post("/register", (req, res) => {
-  // ------------------------------------------------- Modified Day45 
-  // Day45ではルーティング構造確認のためダミー返却
-  return res.json({
-    message: "registered",
-  });
-  /*
   const { email, password } = req.body;
 
   // 入力チェック
@@ -75,21 +65,11 @@ router.post("/register", (req, res) => {
       });
     });
   });
-  */
- // ------------------------------------------------- End Modified Day45
 });
 
 
 // ログインAPI
 router.post("/login", (req, res) => {
-
-// ------------------------------------------------- Modified Day45
-// JWT認証は後続Dayで再実装するためダミートークン返却
- return res.json({
-    token: "dummy-token",
-  });
-
-  /*
   const { email, password } = req.body;
 
   // 入力チェック
@@ -147,8 +127,6 @@ router.post("/login", (req, res) => {
       });
     });
   });
-*/
-// ------------------------------------------------- End Modified Day45
 });
 
 module.exports = router;

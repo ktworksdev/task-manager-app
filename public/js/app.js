@@ -22,7 +22,8 @@ async function loadTasks() {
   try {
     const tasks = await getTasks();
     // 取得したタスク一覧を画面に表示
-    renderTasks(tasks, handleEdit, handleDelete);
+    renderTasks(tasks.data, handleEdit, handleDelete);
+
   } catch (err) {
     // 通信失敗やサーバーエラー時にエラーメッセージを表示
     showError(err.message || "通信に失敗しました");
