@@ -172,3 +172,13 @@ button:hover {
   color: red;
   margin-top: 10px;
 }
+
+/* リンク用スタイル */
+a{
+  color:#007bff;
+  text-decoration:none;
+}
+
+a:hover{
+  text-decoration:underline;
+}

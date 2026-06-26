@@ -5,6 +5,35 @@ function getToken() {
   return localStorage.getItem("token");
 }
 
+// 新規ユーザーを登録する
+export async function register(email, password) {
+
+    const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email,
+            password
+        })
+    });
+
+    const data = await response.json();
+
+    // HTTPステータスが200番台以外ならエラーとして処理
+    if (!response.ok) {
+
+        // サーバーから送られてきたメッセージを優先して表示
+        // なければデフォルトメッセージを表示
+        throw new Error(
+            data.message || data.error || "登録に失敗しました"
+        );
+    }
+
+    return data;
+}
+
 // タスク一覧を取得する
 export async function getTasks() {
   const res = await fetch(API_URL, {

@@ -1,10 +1,10 @@
 // HTMLの読み込みが完了したら処理を開始
 document.addEventListener("DOMContentLoaded", () => {
 
-  // id="loginForm" を持つフォーム要素を取得
+  // フォーム要素を取得
   const loginForm = document.getElementById("loginForm");
 
-  // フォーム送信時に実行される処理を登録
+  // フォームが送信されたときの処理
   loginForm.addEventListener("submit", async (e) => {
 
     // フォームの通常送信（ページ再読み込み）を停止
