@@ -1,3 +1,4 @@
+/* ===== タスク一覧画面 ===== */
 /* ページ全体のレイアウト */
 body {
   font-family: Arial, sans-serif; /* フォントを統一 */
@@ -137,4 +138,37 @@ button:hover {
   button {
     width: 100%;
   }
+}
+
+/* ===== ログイン画面 ===== */
+/* ログイン画面全体のコンテナ */
+.auth-container {
+  width: 350px;
+  margin: 100px auto;
+}
+
+/* タイトル */
+.auth-container h1 {
+  text-align: center;
+}
+
+/* 入力欄（email / password） */
+.auth-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+/* ログインボタン */
+.auth-container button {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* エラーメッセージ表示 */
+#errorMessage {
+  color: red;
+  margin-top: 10px;
 }
