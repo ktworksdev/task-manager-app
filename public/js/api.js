@@ -5,6 +5,23 @@ function getToken() {
   return localStorage.getItem("token");
 }
 
+// 共通fetch処理（401時は自動ログアウト）
+async function apiFetch(url, options = {}) {
+  const response = await fetch(url, options);
+
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+
+    alert("ログインし直してください");
+
+    location.href = "/login.html";
+
+    return null;
+  }
+
+  return response;
+}
+
 // 新規ユーザーを登録する
 export async function register(email, password) {
 
@@ -36,12 +53,15 @@ export async function register(email, password) {
 
 // タスク一覧を取得する
 export async function getTasks() {
-  const res = await fetch(API_URL, {
+  
+  const res = await apiFetch(API_URL, {
     headers: {
       Authorization: `Bearer ${getToken()}`
     }
   });
-
+  
+  if (!res) return;
+  
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.message || "サーバーエラーが発生しました");
@@ -52,14 +72,18 @@ export async function getTasks() {
 
 // タスクを追加する
 export async function createTask(title) {
-  const res = await fetch(API_URL, {
+  
+  const res = await apiFetch(API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${getToken()}`
     },
     body: JSON.stringify({ title }),
-  });  
+  });
+  
+  if (!res) return;
+
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.message || "追加に失敗しました");
@@ -69,7 +93,9 @@ export async function createTask(title) {
 
 // タスクを更新する
 export async function updateTask(id, title, completed) {
-  const res = await fetch(`${API_URL}/${id}`, {
+  
+  const res = await apiFetch(`${API_URL}/${id}`, {
+  
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -80,6 +106,9 @@ export async function updateTask(id, title, completed) {
       completed,
     }),
   });
+  
+  if (!res) return;
+  
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.message || "更新に失敗しました");
@@ -88,12 +117,16 @@ export async function updateTask(id, title, completed) {
 
 // タスクを削除する
 export async function deleteTask(id) {
-  const res = await fetch(`${API_URL}/${id}`, {
+  
+  const res = await apiFetch(`${API_URL}/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${getToken()}`
     }
   });
+  
+  if (!res) return;
+
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.message || "削除に失敗しました");

@@ -82,11 +82,13 @@ export function setupLogout() {
   const btn = document.getElementById("logoutBtn");
 
   btn.addEventListener("click", () => {
+    
+    if(confirm("ログアウトしますか？")){
+      // token削除
+      localStorage.removeItem("token");   
+      // ログイン画面へ遷移 
+      location.href="/login.html";
+    }
 
-    // token削除
-    localStorage.removeItem("token");
-
-    // ログイン画面へ遷移
-    window.location.href = "/login.html";
   });
 }

@@ -61,11 +61,10 @@ async function handleEdit(task) {
 
 // 削除処理
 async function handleDelete(id) {
-  // 削除処理
-  await deleteTask(id);
-
-  // 再読み込み
-  loadTasks();
+  if (confirm("削除しますか？")) {
+    await deleteTask(id);
+    loadTasks();
+  }
 }
 
 // タスク追加
@@ -122,7 +121,8 @@ const token = localStorage.getItem("token");
 
 // 未ログインならログイン画面へ
 if (!token) {
-    location.href = "/login.html";
+  alert("ログインしてください");  
+  location.href = "/login.html";
 }
 
 // ログアウト機能初期化
