@@ -11,6 +11,7 @@ import {
   hideLoading,
   showError,
   clearError,
+  setupLogout,
 } from "./ui.js";
 
 // タスク一覧取得
@@ -123,6 +124,9 @@ const token = localStorage.getItem("token");
 if (!token) {
     location.href = "/login.html";
 }
+
+// ログアウト機能初期化
+setupLogout();
 
 // 初回読み込み
 loadTasks();

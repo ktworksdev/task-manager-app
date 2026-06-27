@@ -75,3 +75,18 @@ export function renderTasks(tasks, onEdit, onDelete) {
     list.appendChild(card);
   });
 }
+
+//ログアウト処理
+export function setupLogout() {
+
+  const btn = document.getElementById("logoutBtn");
+
+  btn.addEventListener("click", () => {
+
+    // token削除
+    localStorage.removeItem("token");
+
+    // ログイン画面へ遷移
+    window.location.href = "/login.html";
+  });
+}
