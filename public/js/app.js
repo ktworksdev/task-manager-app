@@ -116,5 +116,13 @@ document
       }
     });
 
+// JWT取得
+const token = localStorage.getItem("token");
+
+// 未ログインならログイン画面へ
+if (!token) {
+    location.href = "/login.html";
+}
+
 // 初回読み込み
 loadTasks();
