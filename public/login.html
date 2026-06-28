@@ -6,9 +6,11 @@
   <title>ログイン</title>
   <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
   <div class="auth-container">
     <h1>ログイン</h1>
+
     <form id="loginForm">
       <input
         type="email"
@@ -22,12 +24,17 @@
         placeholder="パスワード"
         required
       >
-      <button type="submit">
+      <button id="loginBtn" type="submit">
         ログイン
       </button>
     </form>
-    <p id="errorMessage"></p>
-
+    
+    <div id="loading" class="loading hidden">
+      Loading...
+    </div>
+    
+    <p id="error" class="hidden"></p>
+    
     <p>
       <a href="register.html">
         新規登録はこちら
@@ -35,6 +42,6 @@
     </p>
     
   </div>
-  <script src="/js/login.js" defer></script>
+  <script type="module" src="/js/login.js"></script>
 </body>
 </html>

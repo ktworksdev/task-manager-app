@@ -10,13 +10,12 @@
         "<node_internals>/**"
       ]
     },
-
-    {
-      "type": "pwa-chrome",  
-      "request": "launch",
-      "name": "Launch Chrome", 
-      "url": "http://localhost:3000", 
-      "webRoot": "${workspaceFolder}/public"
-    }
+    {  
+    "type": "chrome",  
+    "request": "launch",  
+    "name": "Launch Chrome",  
+    "url": "http://localhost:3000",  
+    "webRoot": "${workspaceFolder}/public"
+  }
   ]
 }

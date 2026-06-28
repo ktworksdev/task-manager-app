@@ -1,8 +1,14 @@
+import {
+  setLoading,
+  showError, 
+  clearError
+ } from "./ui.js";
+
 // HTMLの読み込みが完了したら処理を開始
 document.addEventListener("DOMContentLoaded", () => {
 
-  // フォーム要素を取得
   const loginForm = document.getElementById("loginForm");
+  const btn = document.getElementById("loginBtn");
 
   // フォームが送信されたときの処理
   loginForm.addEventListener("submit", async (e) => {
@@ -15,6 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // パスワード入力欄の値を取得
     const password = document.getElementById("password").value;
+
+    clearError();
+    setLoading(btn, true);
 
     try {
 
@@ -56,8 +65,10 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("エラー:", err);
 
       // エラーメッセージを画面に表示
-      document.getElementById("errorMessage").textContent =
-        err.message;
+      showError(err.message);
+
+    } finally {
+      setLoading(btn, false);
     }
   });
 });

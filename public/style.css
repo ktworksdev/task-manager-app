@@ -10,6 +10,7 @@ body {
 
 /* アプリ全体のコンテナ */
 .container {
+  width: 90%;
   max-width: 600px;
   margin: 0 auto;
   background: #fff;
@@ -38,37 +39,49 @@ input {
 
 /* ボタンの共通スタイル */
 button {
-  padding: 10px 16px;
-  border: none;
-  background: #4caf50;
+  background: #2563eb;
   color: white;
-  cursor: pointer; /* マウスを乗せたときに手の形にする */
-  border-radius: 4px;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: bold;
 }
 
 /* ホバー効果 */
 button:hover {
-  opacity: 0.8;
+  background: #1d4ed8;
+}
+
+button:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
 }
 
 /* タスク一覧 */
 .task-card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 12px 16px;
-  padding: 12px 20px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 12px;
   margin-bottom: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* 完了タスク */
+.task-completed {
+  opacity: 0.6;
+  text-decoration: line-through;
 }
 
 /* タスク一覧タスク文字スタイル */
 .task-title {
   font-size: 16px;
   font-weight: bold;
-  overflow-wrap: break-word;; /* 改行対策 */
+  overflow-wrap: break-word; /* 改行対策 */
 }
 
 /* 状態表示 */
@@ -96,11 +109,9 @@ button:hover {
   font-size: 14px;
 }
 
-/* エラーメッセージのスタイル */
-#errorMessage {
-  color: red;
-  margin-top: 10px;
-  font-size: 14px;
+/* 状態表示共通 */
+.status {
+  font-weight: bold;
 }
 
 /* タスク一覧状態表示完了済みタスク */
@@ -119,6 +130,29 @@ button:hover {
 .task-actions {
   display: flex;
   gap: 8px;
+}
+
+/* ボタン共通 */
+.btn {
+  padding: 8px 12px;
+}
+
+/* 編集ボタン */
+.btn-edit {
+  background: #2563eb;
+}
+
+.btn-edit:hover {
+  background: #1d4ed8;
+}
+
+/* 削除ボタン */
+.btn-delete {
+  background: #dc2626;
+}
+
+.btn-delete:hover {
+  background: #b91c1c;
 }
 
 /* タブレット・スマホ対応　 */
@@ -167,18 +201,12 @@ button:hover {
   box-sizing: border-box;
 }
 
-/* エラーメッセージ表示 */
-#errorMessage {
-  color: red;
-  margin-top: 10px;
-}
-
 /* リンク用スタイル */
-a{
-  color:#007bff;
-  text-decoration:none;
+a {
+  color: #007bff;
+  text-decoration: none;
 }
 
-a:hover{
-  text-decoration:underline;
+a:hover {
+  text-decoration: underline;
 }
