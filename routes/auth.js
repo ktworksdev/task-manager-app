@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const SECRET_KEY = "your_secret_key"; // 本番環境では.env管理
+const SECRET_KEY = process.env.JWT_SECRET;
 
 // 新規ユーザー登録API
 router.post("/register", (req, res) => {

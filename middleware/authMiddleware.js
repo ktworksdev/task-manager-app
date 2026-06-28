@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const SECRET_KEY = "your_secret_key";
+const SECRET_KEY = process.env.JWT_SECRET;
 
 // JWT認証ミドルウェア
 const authMiddleware = (req, res, next) => {

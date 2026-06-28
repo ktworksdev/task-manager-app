@@ -1,3 +1,6 @@
+// .envファイルを読み込み、環境変数を有効化する
+require("dotenv").config();
+
 // Expressライブラリを読み込む（Webサーバーを作るためのフレームワーク）
 const express = require("express");
 
