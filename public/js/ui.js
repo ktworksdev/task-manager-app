@@ -52,6 +52,13 @@ export function renderTasks(tasks, onEdit, onDelete) {
     title.className = "task-title";
     title.textContent = task.title;
 
+    // 作成日時表示
+    const created = document.createElement("div");
+    created.className = "task-created";
+    const date = new Date(task.created_at);
+    created.textContent =
+      `作成日：${date.toLocaleString("ja-JP")}`;
+    
     // ステータス設定
     const status = document.createElement("div");
 
@@ -84,6 +91,9 @@ export function renderTasks(tasks, onEdit, onDelete) {
     actions.appendChild(deleteBtn);
 
     card.appendChild(title);
+
+    card.appendChild(created);
+
     card.appendChild(status);
     card.appendChild(actions);
 

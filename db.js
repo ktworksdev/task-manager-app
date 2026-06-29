@@ -32,7 +32,8 @@ db.serialize(() => {
       id INTEGER PRIMARY KEY AUTOINCREMENT, -- 自動で増えるID
       title TEXT NOT NULL,                  -- タスクの内容（必須）
       completed INTEGER DEFAULT 0,          -- 完了状態（0=未完了 / 1=完了）
-      user_id INTEGER NOT NULL              -- 所属ユーザーID（必須）
+      user_id INTEGER NOT NULL,             -- 所属ユーザーID（必須）
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP -- 作成日時（自動付与）
     )
   `);
 });

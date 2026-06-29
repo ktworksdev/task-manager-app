@@ -11,7 +11,17 @@ router.get("/", (req, res) => {
   const userId = req.user.userId;
 
   db.all(
-    "SELECT * FROM tasks WHERE user_id = ?",
+    `      
+    SELECT
+      id,    
+      title,    
+      completed,    
+      user_id,    
+      created_at  
+    FROM tasks  
+    WHERE user_id = ?  
+    ORDER BY created_at DESC  
+    `,
     [userId],
     (err, rows) => {
       if (err) {

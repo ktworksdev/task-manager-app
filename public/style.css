@@ -84,6 +84,13 @@ button:disabled {
   overflow-wrap: break-word; /* 改行対策 */
 }
 
+/* 作成日時表示 */
+.task-created {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
 /* 状態表示 */
 .hidden {
   display: none; /* 要素を完全に非表示にする */
