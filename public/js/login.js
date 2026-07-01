@@ -4,6 +4,10 @@ import {
   clearError
  } from "./ui.js";
 
+import {
+  login
+} from "./api.js";
+
 // HTMLの読み込みが完了したら処理を開始
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -26,32 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
     setLoading(btn, true);
 
     try {
-
       // ログインAPIへPOSTリクエストを送信
-      const response = await fetch("/api/auth/login", {
-
-        // HTTPメソッドをPOSTに指定
-        method: "POST",
-
-        // 送信データがJSON形式であることを指定
-        headers: {
-          "Content-Type": "application/json"
-        },
-
-        // メールアドレスとパスワードをJSON文字列に変換して送信
-        body: JSON.stringify({
-          email,
-          password
-        })
-      });
-
-      // サーバーから返ってきたJSONデータを取得
-      const data = await response.json();
-
-      // ステータスコードが200番台以外ならエラーにする
-      if (!response.ok) {
-        throw new Error(data.message);
-      }
+      const data = await login(email, password);
 
       // ログイン成功時にJWTトークンをブラウザに保存
       localStorage.setItem("token", data.token);
