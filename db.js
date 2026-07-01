@@ -10,6 +10,9 @@ const db = new sqlite3.Database("./tasks.db", (err) => {
     return console.error(err.message);
   }
 
+  // 外部キー制約を有効化する
+  db.run("PRAGMA foreign_keys = ON");
+  
   // データベース接続が成功したときのメッセージ
   console.log("SQLite connected");
 });
@@ -33,7 +36,10 @@ db.serialize(() => {
       title TEXT NOT NULL,                  -- タスクの内容（必須）
       completed INTEGER DEFAULT 0,          -- 完了状態（0=未完了 / 1=完了）
       user_id INTEGER NOT NULL,             -- 所属ユーザーID（必須）
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP -- 作成日時（自動付与）
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- 作成日時（自動付与）
+      FOREIGN KEY(user_id)
+      REFERENCES users(id)
+      ON DELETE CASCADE
     )
   `);
 });
