@@ -31,7 +31,7 @@ router.get("/", (req, res) => {
         });
       }
 
-      res.json({
+      return res.json({
         message: "成功",
         data: rows,
       });
@@ -67,7 +67,7 @@ router.post("/", (req, res) => {
         });
       }
 
-      res.json({
+      return res.json({
         message: "作成成功",
         id: this.lastID,
       });
@@ -120,8 +120,7 @@ router.put("/:id", (req, res) => {
         });
       }
 
-      // 成功レスポンス
-      res.json({      
+      return res.json({
         message: "更新完了",      
         changes: this.changes,    
       });  
@@ -135,11 +134,9 @@ router.delete("/:id", (req, res) => {
   const userId = req.user.userId;
 
   // 削除SQL
-  //const sql = "DELETE FROM tasks WHERE id = ?";
   const sql = "DELETE FROM tasks WHERE id = ? AND user_id = ?";
 
   // 実行
-  //db.run(sql, [id], function (err) {
   db.run(sql, [id, userId], function (err) {
       if (err) {
         return res.status(500).json({    
@@ -154,11 +151,10 @@ router.delete("/:id", (req, res) => {
           message: "タスクが見つかりません",
         });
       }
-    
-      // 成功レスポンス    
-      res.json({      
-        message: "削除成功",        
-        deletedId: id,    
+
+      return res.json({
+        message: "削除成功",
+        deletedId: id,
       });  
     }
   );
