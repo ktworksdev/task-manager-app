@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
   const btn = document.getElementById("loginBtn");
 
+  // 初回表示時に残っているエラー表示を初期化する
+  clearError();
+
   // フォームが送信されたときの処理
   loginForm.addEventListener("submit", async (e) => {
 

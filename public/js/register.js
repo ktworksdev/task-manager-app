@@ -1,10 +1,14 @@
-import { register } from "./api.js";
+import {
+  register
+} from "./api.js";
+
+import {
+  showError,
+  clearError
+} from "./ui.js";
 
 // フォーム要素を取得
 const form = document.getElementById("registerForm");
-
-// エラーメッセージを表示する要素を取得
-const message = document.getElementById("message");
 
 // フォームが送信されたときの処理
 form.addEventListener("submit", async (e) => {
@@ -17,9 +21,9 @@ form.addEventListener("submit", async (e) => {
 
     // パスワード入力欄の値を取得
     const password = document.getElementById("password").value;
+    clearError();
 
     try {
-
         // ユーザー登録処理を実行
         await register(email, password);
 
@@ -32,6 +36,6 @@ form.addEventListener("submit", async (e) => {
     } catch (err) {
 
         // 登録失敗時はエラーメッセージを画面に表示
-        message.textContent = err.message;
+        showError(err.message);
     }
 });

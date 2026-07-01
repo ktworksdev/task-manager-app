@@ -12,8 +12,6 @@ async function apiFetch(url, options = {}) {
   if (response.status === 401 || response.status === 403) {
     localStorage.removeItem("token");
 
-    alert("ログインし直してください");
-
     location.href = "/login.html";
 
     return null;

@@ -48,7 +48,7 @@ async function handleEdit(task) {
 
    // 文字数制限
   if (newTitle.length > 30) {
-    alert("30文字以内で入力してください");
+    showError("30文字以内で入力してください");
     return;
   }
 
@@ -78,17 +78,17 @@ async function addTask() {
   const title = input.value.trim();
 
   // エラーメッセージ初期化
-  error.textContent = "";
+  clearError();
 
   // 空文字チェック
   if (title === "") {
-    error.textContent = "タスク名を入力してください";
+    showError("タスク名を入力してください");
     return;
   }
 
   // 文字数制限
   if (title.length > 30) {
-    error.textContent = "30文字以内で入力してください";
+    showError("30文字以内で入力してください");
     return;
   }
   
@@ -121,7 +121,7 @@ const token = localStorage.getItem("token");
 
 // 未ログインならログイン画面へ
 if (!token) {
-  alert("ログインしてください");  
+  localStorage.setItem("errorMessage", "ログインしてください");
   location.href = "/login.html";
 }
 
