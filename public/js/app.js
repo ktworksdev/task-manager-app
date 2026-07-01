@@ -53,17 +53,24 @@ async function handleEdit(task) {
   }
 
   // 更新処理
-  await updateTask(task.id, newTitle, task.completed);
-
-  // 再読み込み
-  loadTasks();
+  try {
+    await updateTask(task.id, newTitle, task.completed);
+    loadTasks();
+  } catch (err) {
+    showError(err.message || "更新に失敗しました");
+  }
 }
 
 // 削除処理
 async function handleDelete(id) {
-  if (confirm("削除しますか？")) {
+  if (!confirm("削除しますか？")) return;
+
+  try {
     await deleteTask(id);
     loadTasks();
+
+  } catch (err) {
+    showError(err.message || "削除に失敗しました");
   }
 }
 
