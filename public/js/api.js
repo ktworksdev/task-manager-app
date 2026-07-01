@@ -5,11 +5,11 @@ function getToken() {
   return localStorage.getItem("token");
 }
 
-// 共通fetch処理（401時は自動ログアウト）
+// 共通fetch処理（401・403時は自動ログアウト）
 async function apiFetch(url, options = {}) {
   const response = await fetch(url, options);
 
-  if (response.status === 401) {
+  if (response.status === 401 || response.status === 403) {
     localStorage.removeItem("token");
 
     alert("ログインし直してください");
