@@ -55,7 +55,7 @@ async function handleEdit(task) {
   // 更新処理
   try {
     await updateTask(task.id, newTitle, task.completed);
-    loadTasks();
+    await loadTasks();
   } catch (err) {
     showError(err.message || "更新に失敗しました");
   }
@@ -67,8 +67,7 @@ async function handleDelete(id) {
 
   try {
     await deleteTask(id);
-    loadTasks();
-
+    await loadTasks();
   } catch (err) {
     showError(err.message || "削除に失敗しました");
   }
