@@ -115,9 +115,16 @@ document
 // 追加ボタンEnterキー対応
 document
 .getElementById("taskInput")
-.addEventListener("keydown",(e) => {  
+.addEventListener("keydown",(e) => {
+    // IME変換中は何もしない
+    if (e.isComposing) {
+        return;
+    }
+
     if (e.key === "Enter") {
-        addTask();
+      // Enterキーのデフォルト動作（フォーム送信など）を防止  
+      e.preventDefault();  
+      addTask();
       }
     });
 
