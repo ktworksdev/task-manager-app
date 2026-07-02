@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:3000/api/tasks";
+// APIのURL（現在のサイトを基準にアクセスする）
+const API_URL = "/api/tasks";
 
 //ローカルストレージから認証トークンを取得する
 function getToken() {
