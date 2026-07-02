@@ -79,8 +79,6 @@ async function addTask() {
   // input取得
   const input = document.getElementById("taskInput");
 
-  const error = document.getElementById("errorMessage");
-
   // 入力値取得
   const title = input.value.trim();
 
