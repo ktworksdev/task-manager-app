@@ -4,7 +4,8 @@ import {
 
 import {
   showError,
-  clearError
+  clearError,
+  showSuccess
 } from "./ui.js";
 
 // フォーム要素を取得
@@ -28,10 +29,12 @@ form.addEventListener("submit", async (e) => {
         await register(email, password);
 
         // 登録成功時のメッセージを表示
-        alert("登録完了");
+        showSuccess("登録しました");
 
-        // ログインへ画面移動
-        location.href = "/login.html";
+        // 1秒後にログイン画面へ移動
+        setTimeout(() => {
+            location.href = "/login.html";
+        }, 1000);
 
     } catch (err) {
 

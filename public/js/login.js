@@ -17,6 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // 初回表示時に残っているエラー表示を初期化する
   clearError();
 
+  // リダイレクト時のメッセージ表示
+  const errorMessage = localStorage.getItem("errorMessage");
+
+  if (errorMessage) {
+    showError(errorMessage);
+    localStorage.removeItem("errorMessage");
+  }
+
   // フォームが送信されたときの処理
   loginForm.addEventListener("submit", async (e) => {
 

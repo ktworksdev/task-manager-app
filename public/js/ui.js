@@ -26,6 +26,16 @@ export function clearError() {
   errorBox.classList.remove("error");
 }
 
+// 成功メッセージ表示
+export function showSuccess(message) {
+  const successBox = document.getElementById("success");
+
+  if (!successBox) return;
+
+  successBox.textContent = message;
+  successBox.classList.remove("hidden");
+}
+
 // ボタンのローディング状態切り替え
 export function setLoading(button, isLoading) {
   button.disabled = isLoading;

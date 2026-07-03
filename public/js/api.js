@@ -13,6 +13,10 @@ async function apiFetch(url, options = {}) {
   if (response.status === 401 || response.status === 403) {
     localStorage.removeItem("token");
 
+        localStorage.setItem(
+      "errorMessage",
+      "ログイン期限が切れました。再度ログインしてください。"
+    );
     location.href = "/login.html";
 
     return null;
