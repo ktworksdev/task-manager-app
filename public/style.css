@@ -1,8 +1,7 @@
 /* ===== タスク一覧画面 ===== */
 /* ページ全体のレイアウト */
 body {
-  font-family: Arial, sans-serif; /* フォントを統一 */
-  max-width: 600px;
+  font-family: Arial, sans-serif;
   margin: 40px auto;
   background: #f5f5f5;
   padding: 16px;
@@ -18,9 +17,25 @@ body {
   border-radius: 10px;
 }
 
-/* 見出しの中央揃え */
-h1 {
-  text-align: center; /* テキストを中央配置 */
+/* ヘッダー全体 */
+.top-bar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* タイトル（中央固定） */
+.top-bar h1 {
+  margin: 0;
+}
+
+/* ログアウトボタン（右上固定） */
+#logoutBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 /* 入力フォームエリア */
@@ -30,27 +45,30 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* タスク入力欄 */
-input {
+/* 入力欄（フォーム専用に限定） */
+.form-area input {
   width: 70%;
   padding: 10px;
   font-size: 16px;
 }
 
-/* ボタンの共通スタイル */
-button {
+/* ボタン共通スタイル（グローバルではなく制御） */
+.form-area button,
+.auth-container button,
+.task-actions button {
   background: #2563eb;
   color: white;
   border: none;
   padding: 10px 14px;
   border-radius: 6px;
   cursor: pointer;
-  transition: 0.2s;
   font-weight: bold;
+  transition: 0.2s;
 }
 
-/* ホバー効果 */
-button:hover {
+/* ホバー */
+.form-area button:hover,
+.auth-container button:hover {
   background: #1d4ed8;
 }
 
@@ -59,54 +77,107 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* タスク一覧 */
+/* ===== タスクカード ===== */
 .task-card {
   background: white;
   border: 1px solid #e5e7eb;
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 8px;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: stretch;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ヘッダー（チェック + タイトル） */
+.task-header {
+  display: flex;
   align-items: center;
+  gap: 6px;
 }
 
-/* 完了タスク */
-.task-completed {
-  opacity: 0.6;
-  text-decoration: line-through;
+/* チェックボックス（安定版） */
+.task-card input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
-/* タスク一覧タスク文字スタイル */
+/* タスクタイトル */
 .task-title {
   font-size: 16px;
   font-weight: bold;
-  overflow-wrap: break-word; /* 改行対策 */
+  overflow-wrap: break-word;
 }
 
-/* 作成日時表示 */
+/* 作成日時 */
 .task-created {
   font-size: 12px;
   color: #666;
   margin-top: 4px;
 }
 
-/* 状態表示 */
-.hidden {
-  display: none; /* 要素を完全に非表示にする */
+/* 完了状態 */
+.task-completed {
+  opacity: 0.6;
+  text-decoration: line-through;
 }
 
-/* ローディング表示 */
+/* 状態ラベル */
+.status {
+  font-weight: bold;
+}
+
+.completed {
+  color: green;
+}
+
+.pending {
+  color: red;
+}
+
+/* ボタンエリア */
+.task-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* 編集・削除 */
+.btn-edit {
+  background: #2563eb;
+}
+
+.btn-edit:hover {
+  background: #1d4ed8;
+}
+
+.task-actions .btn-delete {
+  background: #dc2626;
+}
+
+.task-actions .btn-delete:hover {
+  background: #b91c1c;
+}
+
+/* 状態UI */
+.hidden {
+  display: none;
+}
+
 .loading {
   margin: 10px 0;
   padding: 10px;
   background: #f0f0f0;
-  color: #333;
   border-radius: 6px;
   font-size: 14px;
 }
 
-/* エラー表示 */
 .error {
   margin: 10px 0;
   padding: 10px;
@@ -116,84 +187,16 @@ button:disabled {
   font-size: 14px;
 }
 
-/* 状態表示共通 */
-.status {
-  font-weight: bold;
-}
-
-/* タスク一覧状態表示完了済みタスク */
-.completed {
-  color: green;
-  font-weight: bold;
-}
-
-/* タスク一覧状態表示未完了タスク */
-.pending {
-  color: red;
-  font-weight: bold;
-}
-
-/* ボタン群レイアウト*/
-.task-actions {
-  display: flex;
-  gap: 8px;
-}
-
-/* ボタン共通 */
-.btn {
-  padding: 8px 12px;
-}
-
-/* 編集ボタン */
-.btn-edit {
-  background: #2563eb;
-}
-
-.btn-edit:hover {
-  background: #1d4ed8;
-}
-
-/* 削除ボタン */
-.btn-delete {
-  background: #dc2626;
-}
-
-.btn-delete:hover {
-  background: #b91c1c;
-}
-
-/* タブレット・スマホ対応　 */
-@media (max-width: 768px) {
-
-  /* 入力フォーム */
-  .form-area {
-    flex-direction: column;
-  }
-
-  /* 入力欄 */
-  input {
-    width: 100%;
-  }
-
-  /* ボタン */
-  button {
-    width: 100%;
-  }
-}
-
 /* ===== ログイン画面 ===== */
-/* ログイン画面全体のコンテナ */
 .auth-container {
   width: 350px;
   margin: 100px auto;
 }
 
-/* タイトル */
 .auth-container h1 {
   text-align: center;
 }
 
-/* 入力欄（email / password） */
 .auth-container input {
   width: 100%;
   padding: 10px;
@@ -201,14 +204,7 @@ button:disabled {
   box-sizing: border-box;
 }
 
-/* ログインボタン */
-.auth-container button {
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-/* リンク用スタイル */
+/* リンク */
 a {
   color: #007bff;
   text-decoration: none;
@@ -216,4 +212,19 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+/* ===== スマホ対応 ===== */
+@media (max-width: 768px) {
+  .form-area {
+    flex-direction: column;
+  }
+
+  .form-area input {
+    width: 100%;
+  }
+
+  .form-area button {
+    width: 100%;
+  }
 }

@@ -23,8 +23,7 @@ async function loadTasks() {
   try {
     const tasks = await getTasks();
     // 取得したタスク一覧を画面に表示
-    renderTasks(tasks.data, handleEdit, handleDelete);
-
+    renderTasks(tasks.data, handleEdit, handleDelete, handleToggleComplete);
   } catch (err) {
     // 通信失敗やサーバーエラー時にエラーメッセージを表示
     showError(err.message || "通信に失敗しました");
@@ -70,6 +69,21 @@ async function handleDelete(id) {
     await loadTasks();
   } catch (err) {
     showError(err.message || "削除に失敗しました");
+  }
+}
+
+// 完了状態トグル処理（チェックボックス用追加）
+async function handleToggleComplete(task) {
+  try {
+    await updateTask(
+      task.id,
+      task.title,
+      task.completed ? 0 : 1
+    );
+
+    await loadTasks();
+  } catch (err) {
+    showError(err.message || "更新に失敗しました");
   }
 }
 

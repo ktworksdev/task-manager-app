@@ -43,7 +43,7 @@ export function setLoading(button, isLoading) {
 }
 
 // タスク一覧描画
-export function renderTasks(tasks, onEdit, onDelete) {
+export function renderTasks(tasks, onEdit, onDelete, onToggleComplete) {
   const list = document.getElementById("taskList");
   list.innerHTML = "";
 
@@ -57,10 +57,26 @@ export function renderTasks(tasks, onEdit, onDelete) {
     const card = document.createElement("div");
     card.className = `task-card ${task.completed ? "task-completed" : ""}`;
 
+    // 上部エリア（チェックボックス + タイトル）
+    const header = document.createElement("div");
+    header.className = "task-header";
+
+    // 完了チェックボックス追加
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = task.completed === 1;
+
+    checkbox.onchange = () => {
+      onToggleComplete(task);
+    };
+
     // テキスト設定
     const title = document.createElement("div");
     title.className = "task-title";
     title.textContent = task.title;
+
+    header.appendChild(checkbox);
+    header.appendChild(title);
 
     // 作成日時表示
     const created = document.createElement("div");
@@ -68,18 +84,24 @@ export function renderTasks(tasks, onEdit, onDelete) {
     const date = new Date(task.created_at);
     created.textContent =
       `作成日：${date.toLocaleString("ja-JP")}`;
-    
+
     // ステータス設定
     const status = document.createElement("div");
 
     // 完了状態に応じてクラスと表示テキストを切り替え
-    //status.className = task.completed ? "completed" : "pending";
-    status.className = task.completed 
+    status.className = task.completed
       ? "status completed"
       : "status pending";
-    
-    status.textContent = task.completed ? "完了" : "未完了";    
 
+    status.textContent = task.completed ? "完了" : "未完了";
+  
+    // 情報エリア（作成日時 + 状態）
+    const info = document.createElement("div");
+    info.className = "task-info";
+
+    info.appendChild(created);
+    info.appendChild(status);
+    
     // ボタン設定
     const actions = document.createElement("div");
     actions.className = "task-actions";
@@ -100,11 +122,8 @@ export function renderTasks(tasks, onEdit, onDelete) {
     actions.appendChild(editBtn);
     actions.appendChild(deleteBtn);
 
-    card.appendChild(title);
-
-    card.appendChild(created);
-
-    card.appendChild(status);
+    card.appendChild(header);
+    card.appendChild(info);
     card.appendChild(actions);
 
     list.appendChild(card);
@@ -117,12 +136,12 @@ export function setupLogout() {
   const btn = document.getElementById("logoutBtn");
 
   btn.addEventListener("click", () => {
-    
-    if(confirm("ログアウトしますか？")){
+
+    if (confirm("ログアウトしますか？")) {
       // token削除
-      localStorage.removeItem("token");   
-      // ログイン画面へ遷移 
-      location.href="/login.html";
+      localStorage.removeItem("token");
+      // ログイン画面へ遷移
+      location.href = "/login.html";
     }
 
   });
