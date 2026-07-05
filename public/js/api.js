@@ -41,7 +41,7 @@ export async function login(email, password) {
   const data = await res.json();
 
   if (!res.ok) {
-    throw new Error(data.message || data.error || "ログインに失敗しました");
+    throw new Error(data.message || "ログインに失敗しました");
   }
 
   return data;
@@ -65,12 +65,7 @@ export async function register(email, password) {
 
     // HTTPステータスが200番台以外ならエラーとして処理
     if (!response.ok) {
-
-        // サーバーから送られてきたメッセージを優先して表示
-        // なければデフォルトメッセージを表示
-        throw new Error(
-            data.message || data.error || "登録に失敗しました"
-        );
+      throw new Error(data.message || "登録に失敗しました");  
     }
 
     return data;

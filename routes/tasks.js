@@ -25,9 +25,10 @@ router.get("/", (req, res) => {
     [userId],
     (err, rows) => {
       if (err) {
-        return res.status(500).json({
-          message: "取得失敗",
-          error: err.message,
+        console.error(err);
+
+        return res.status(500).json({  
+          message: "タスク一覧の取得に失敗しました",
         });
       }
 
@@ -61,9 +62,10 @@ router.post("/", (req, res) => {
     [title, userId],
     function (err) {
       if (err) {
+        console.error(err);
+  
         return res.status(500).json({
-          message: "作成失敗",
-          error: err.message,
+          message: "タスクの作成に失敗しました",
         });
       }
 
@@ -84,14 +86,14 @@ router.put("/:id", (req, res) => {
   // 空文字チェック
   if (!title || title.trim() === "") {
     return res.status(400).json({
-      error: "タスク名を入力してください",
+      message: "タスク名を入力してください",
     });
   }
 
   // 文字数制限
   if (title.length > 30) {
     return res.status(400).json({
-      error: "30文字以内で入力してください",
+      message: "30文字以内で入力してください",
     });
   }
 
@@ -107,9 +109,10 @@ router.put("/:id", (req, res) => {
     sql, [title, completed ? 1 : 0, id, userId], function (err) {
       // エラー処理
       if (err) {
-        return res.status(500).json({
-          message: "更新失敗",
-          error: err.message,
+        console.error(err);
+ 
+        return res.status(500).json({    
+          message: "タスクの更新に失敗しました", 
         });
       }
 
@@ -139,10 +142,11 @@ router.delete("/:id", (req, res) => {
   // 実行
   db.run(sql, [id, userId], function (err) {
       if (err) {
-        return res.status(500).json({    
-          message: "削除失敗",    
-          error: err.message,    
-        });   
+        console.error(err);
+
+        return res.status(500).json({
+          message: "タスクの削除に失敗しました",
+        });
       }
 
       // 削除対象がなかった場合

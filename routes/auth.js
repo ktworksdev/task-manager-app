@@ -21,8 +21,10 @@ router.post("/register", (req, res) => {
 
   db.get(checkSql, [email], (err, user) => {
     if (err) {
+      console.error(err);
+
       return res.status(500).json({
-        error: err.message,
+        message: "ユーザー情報の取得に失敗しました",
       });
     }
 
@@ -48,9 +50,10 @@ router.post("/register", (req, res) => {
 
       db.run(insertSql, [email, hashedPassword], function (err) {
         if (err) {
+          console.error(err);
+
           return res.status(500).json({
-            message: "ユーザー作成失敗",
-            error: err.message,
+            message: "ユーザー登録に失敗しました",
           });
         }
 
@@ -85,8 +88,10 @@ router.post("/login", (req, res) => {
   db.get(checkSql, [email], (err, user) => {
     // DBエラー
     if (err) {
-      return res.status(500).json({
-        error: err.message,
+      console.error(err);
+      
+      return res.status(500).json({            
+        message: "ログイン処理に失敗しました",
       });
     }
 
