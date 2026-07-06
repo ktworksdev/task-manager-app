@@ -100,7 +100,9 @@ router.put("/:id", (req, res) => {
   // 更新SQL
   const sql = `
     UPDATE tasks
-    SET title = ?, completed = ?
+    SET title = ?,
+        completed = ?,       
+        updated_at = CURRENT_TIMESTAMP
     WHERE id = ? AND user_id = ?
   `;
 

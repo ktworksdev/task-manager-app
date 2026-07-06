@@ -37,13 +37,14 @@ db.serialize(() => {
   `);
 
  // tasksテーブル作成（存在しない場合のみ作成）
- db.run(`
+  db.run(`
     CREATE TABLE IF NOT EXISTS tasks (
       id INTEGER PRIMARY KEY AUTOINCREMENT, -- 自動で増えるID
       title TEXT NOT NULL,                  -- タスクの内容（必須）
       completed INTEGER DEFAULT 0,          -- 完了状態（0=未完了 / 1=完了）
       user_id INTEGER NOT NULL,             -- 所属ユーザーID（必須）
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- 作成日時（自動付与）
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- 更新日時（自動付与）
       FOREIGN KEY(user_id)
       REFERENCES users(id)
       ON DELETE CASCADE
