@@ -1,9 +1,16 @@
 // SQLite3ライブラリを読み込む（詳細ログ付きモードを有効化）
 const sqlite3 = require("sqlite3").verbose();
 
-// tasks.dbというファイルに接続してデータベースを開く
-// 接続に成功・失敗どちらでもコールバックが実行される
-const db = new sqlite3.Database("./tasks.db", (err) => {
+// .envファイルを読み込み、環境変数を有効化する
+require("dotenv").config();
+
+// DBパスを環境変数から取得する
+const DB_PATH = process.env.DB_PATH;
+
+// データベースを開く
+const db = new sqlite3.Database(DB_PATH, (err) => {
+//const db = new sqlite3.Database("./tasks.db", (err) => {
+  
   // エラーが発生した場合の処理
   if (err) {
     // エラー内容を表示して処理を終了する
@@ -14,7 +21,7 @@ const db = new sqlite3.Database("./tasks.db", (err) => {
   db.run("PRAGMA foreign_keys = ON");
   
   // データベース接続が成功したときのメッセージ
-  console.log("SQLite connected");
+  console.log("SQLite connected");  
 });
 
 // SQLを順番に安全に実行するためのブロック

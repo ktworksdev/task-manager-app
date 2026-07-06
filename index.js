@@ -31,10 +31,13 @@ app.use("/api/auth", authRoutes);
 // tasksルーティングを追加（認証付きAPI）
 app.use("/api/tasks", taskRoutes);
 
-// ------------------------------
+// ポート番号を環境変数から取得する
+const PORT = process.env.PORT || 3000;
+
 // サーバー起動
-// ------------------------------
-app.listen(3000, () => {
+app.listen(PORT, () => {
   // サーバー起動メッセージ
-  console.log("Server started on http://localhost:3000");
+  console.log(
+    `Server started on http://localhost:${PORT}`
+  );
 });
