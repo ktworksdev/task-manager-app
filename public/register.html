@@ -2,38 +2,34 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <title>新規登録</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>新規登録</title>
+  <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
+  <div class="auth-container">
+    <h1>新規登録</h1>
 
-<h1>新規登録</h1>
-
-<form id="registerForm">
-
-    <input
+    <form id="registerForm">
+      <input
         type="email"
         id="email"
         placeholder="メールアドレス"
         required
-    >
-
-    <input
+      >
+      <input
         type="password"
         id="password"
         placeholder="パスワード"
         required
-    >
-
+      >
     <button type="submit">
         登録
     </button>
-
 </form>
 
 <div id="error" class="error hidden"></div>
-
 <div id="success" class="loading hidden"></div>
 
 <p>
@@ -42,7 +38,7 @@
     </a>
 </p>
 
-<script type="module" src="js/register.js"></script>
-
+</div>
+<script type="module" src="/js/register.js"></script>
 </body>
 </html>
