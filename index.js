@@ -38,6 +38,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   // サーバー起動メッセージ
   console.log(
-    `Server started on http://localhost:${PORT}`
+    `Server running on port ${PORT}`
   );
 });

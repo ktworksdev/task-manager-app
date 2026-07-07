@@ -1,11 +1,10 @@
 // SQLite3ライブラリを読み込む（詳細ログ付きモードを有効化）
 const sqlite3 = require("sqlite3").verbose();
 
-// .envファイルを読み込み、環境変数を有効化する
-require("dotenv").config();
+const path = require("path");
 
 // DBパスを環境変数から取得する
-const DB_PATH = process.env.DB_PATH;
+const DB_PATH = process.env.DB_PATH || path.join(__dirname, "tasks.db");
 
 // データベースを開く
 const db = new sqlite3.Database(DB_PATH, (err) => {
