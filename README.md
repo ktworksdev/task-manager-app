@@ -68,7 +68,7 @@ REST APIを設計し、フロントエンドとバックエンドを分離した
 
 ### Frontend
 
-https://task-manager-app.vercel.app
+https://task-manager-app-two-omega.vercel.app
 
 ### Backend
 
