@@ -24,7 +24,7 @@ app.use(
     cors({
         origin: [
             "http://localhost:3000",
-            "https://task-manager-app.vercel.app",
+            "https://task-manager-app-two-omega.vercel.app",
         ],
     })
 );
