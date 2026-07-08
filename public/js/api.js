@@ -1,5 +1,11 @@
-// APIのURL（現在のサイトを基準にアクセスする）
-const API_URL = "/api/tasks";
+// APIのベースURL
+const BASE_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:3000"
+    : "https://task-manager-app-am1n.onrender.com";
+
+// APIのURL（環境に応じて切り替える）
+const API_URL = `${BASE_URL}/api/tasks`;
 
 //ローカルストレージから認証トークンを取得する
 function getToken() {
@@ -27,7 +33,7 @@ async function apiFetch(url, options = {}) {
 
 // ログインAPI
 export async function login(email, password) {
-  const res = await fetch("/api/auth/login", {
+  const res = await fetch(`${BASE_URL}/api/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -50,7 +56,7 @@ export async function login(email, password) {
 // 新規ユーザーを登録する
 export async function register(email, password) {
 
-    const response = await fetch("/api/auth/register", {
+    const response = await fetch(`${BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

@@ -64,6 +64,29 @@ REST APIを設計し、フロントエンドとバックエンドを分離した
 
 ---
 
+## Demo
+
+### Frontend
+
+https://task-manager-app.vercel.app
+
+### Backend
+
+https://task-manager-app-am1n.onrender.com
+
+---
+
+## Deployment
+
+| Service  | Platform |
+| -------- | -------- |
+| Frontend | Vercel   |
+| Backend  | Render   |
+| Database | SQLite   |
+
+---
+
+
 ## 🛠 Tech Stack（使用技術）
 
 ### Frontend

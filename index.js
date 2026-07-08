@@ -20,7 +20,14 @@ const app = express();
 app.use(express.static("public"));
 
 // CORSを全てのリクエストに対して許可する
-app.use(cors());
+app.use(
+    cors({
+        origin: [
+            "http://localhost:3000",
+            "https://task-manager-app.vercel.app",
+        ],
+    })
+);
 
 // JSON形式のリクエストボディを自動で解析する
 app.use(express.json());
